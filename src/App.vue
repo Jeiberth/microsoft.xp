@@ -962,15 +962,14 @@ onUnmounted(() => {
                 bottom: 20px;
             }
         }
-
-/* Main desktop area */
+/* 
 .main-page {
   flex: 1;
   background-image: url('@/assets/bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #008080; /* Fallback teal color */
+  background-color: #008080; 
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, 80px);
@@ -980,9 +979,28 @@ onUnmounted(() => {
   align-content: start;
   overflow: hidden;
 }
+*/
 
-/* Desktop App Styling */
-.desktop-app {
+
+.main-page {
+    flex: 1;
+  background-image: url('@/assets/bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #008080; /* Fallback teal color */
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+    
+    /* Column layout instead of grid/flex */
+    column-width: 120px;
+    column-gap: 36px;
+    column-fill: auto;
+}
+
+
+ .desktop-app {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -994,7 +1012,7 @@ onUnmounted(() => {
   padding: 12px 6px 6px 6px;
   user-select: none;
   transition: all 0.1s ease;
-}
+} 
 
 .app-icon-container {
   display: flex;
@@ -1058,18 +1076,18 @@ onUnmounted(() => {
   height: 60px;
   width: 100%;
   background: linear-gradient(
-    rgb(24, 104, 206) 0%, 
-    rgb(14, 96, 203) 12%, 
-    rgb(14, 96, 203) 20%, 
-    rgb(17, 100, 207) 32%, 
-    rgb(22, 103, 207) 33%, 
-    rgb(27, 108, 211) 47%, 
-    rgb(30, 112, 217) 54%, 
-    rgb(36, 118, 220) 60%, 
-    rgb(41, 122, 224) 65%, 
-    rgb(52, 130, 227) 77%, 
-    rgb(55, 134, 229) 79%, 
-    rgb(66, 142, 233) 90%, 
+    rgb(24, 104, 206) 0%,
+    rgb(14, 96, 203) 12%,
+    rgb(14, 96, 203) 20%,
+    rgb(17, 100, 207) 32%,
+    rgb(22, 103, 207) 33%,
+    rgb(27, 108, 211) 47%,
+    rgb(30, 112, 217) 54%,
+    rgb(36, 118, 220) 60%,
+    rgb(41, 122, 224) 65%,
+    rgb(52, 130, 227) 77%,
+    rgb(55, 134, 229) 79%,
+    rgb(66, 142, 233) 90%,
     rgb(71, 145, 235) 100%
   );
   display: flex;
