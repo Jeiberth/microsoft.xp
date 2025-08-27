@@ -1,0 +1,705 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+
+        let n = -100 ;
+let nn = -60 ;
+let m,p;
+const enemies = [9,9]
+const shot = new Audio();
+const nature = new Audio();
+const circus = new Audio();
+const glitch = new Audio();
+shot.src = "https://jeiberth.github.io/my-old-website/Game/shot.m4a";
+shot.volume = 0.2;
+nature.src = "https://jeiberth.github.io/my-old-website/Game/nature.m4a";
+circus.src = "https://jeiberth.github.io/my-old-website/Game/circus.m4a";
+glitch.src = "https://jeiberth.github.io/my-old-website/Game/Glitch.mp4";
+
+window.onload = function(){
+    glitch.play();
+};
+
+const enemiesmove = [
+                        ["","m71","m72","m73","m74","m75","m76","m77","m78","m79"],
+                        ["","m41","m42","m43","m44","m45","m46","m47","m48","m49"],
+                        [""]
+                    ]
+
+const deadenemy = []
+
+function next(x){
+    glitch.play();
+    y="b"+(x-1);
+    x="b"+x;
+    console.log(x);
+    if(x=="b2"){
+        var elementss = document.getElementsByClassName('st');
+         for (var i = 0; i < elementss.length; i++) {
+        elementss[i].style.display = "none";
+    }
+    }
+    document.getElementById(y).style.display = "none";
+    document.getElementById(x).style.display = "block";
+    if(x=="b7"){   
+        console.log('juegar b7');
+        m = setInterval(function() {
+            circus.play();
+            n = n + 1;
+            document.getElementById("timer7").innerHTML = n + "s";    
+        }, 1000);
+        p = setInterval(function(){playing(0, 7)}, 500);
+    }
+    if(x=="b4"){    
+        console.log('juegar b3');
+        m = setInterval(function() {
+            nature.play();
+            nn = nn + 1;
+            document.getElementById("timer4").innerHTML = nn + "s";    
+        }, 1000);
+        p = setInterval(function(){playing(1, 4)}, 700);
+    }
+}
+
+
+
+function playing(l, z){
+    en = Math.floor(Math.random() * (enemies[l] - 1 + 1)) + 1;
+    if(document.getElementById("e"+z+en).style.display!="inline"){
+    document.getElementById("e"+z+en).style.animation = enemiesmove[l][en]+" 1s ease 0s 1 normal forwards";
+    document.getElementById("e"+z+en).style.display = "inline";
+    deadenemy[en] = setTimeout(function(){dead(z)}, 3000);
+    }
+    if(document.getElementById("timer"+z).innerHTML=="0s"){
+        nature.pause();
+        circus.pause();
+        nature.currentTime = 0;
+        circus.currentTime = 0;
+        console.log(z);
+        var elementsss = document.getElementsByClassName('enemy');
+        for (var i = 0; i < elementsss.length; i++) {
+            elementsss[i].style.display = "none";
+            clearTimeout(deadenemy[i+1]);
+        }
+        next(z+1);
+        clearTimeout(m);
+        clearTimeout(p);
+    }
+}
+
+function shoot(shooid){
+    shot.pause();
+    shot.currentTime = 0;
+    document.getElementById(shooid).style.display = "none";
+    shooid = shooid.substring(2);
+    clearTimeout(deadenemy[shooid]);
+    shot.play();
+}
+
+function dead(level){
+    var elements = document.getElementsByClassName('enemy');
+    for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = "none";
+    clearTimeout(deadenemy[i+1]);
+    }
+
+
+    document.getElementById("timer4").innerHTML = "-60s";
+    document.getElementById("timer7").innerHTML = "-100s";
+    n = -100;
+    nn = -60;
+    document.getElementById("b"+level).style.display = "none";
+    document.getElementById("b0").style.display = "block";
+    clearTimeout(m);
+    clearTimeout(p);
+
+    nature.pause();
+    circus.pause();
+    nature.currentTime = 0;
+    circus.currentTime = 0;
+}
+
+
+function ChangeColor() {
+    // Select all elements where the CSS variable is applied
+    var elements = document.querySelectorAll('*');
+  
+    // Get the current values of the CSS variables
+    var currentC1 = getComputedStyle(document.documentElement).getPropertyValue('--c1').trim();
+    var currentC2 = getComputedStyle(document.documentElement).getPropertyValue('--c2').trim();
+    var currentC3 = getComputedStyle(document.documentElement).getPropertyValue('--c3').trim();
+    var currentC4 = getComputedStyle(document.documentElement).getPropertyValue('--c4').trim();
+    var currentC5 = getComputedStyle(document.documentElement).getPropertyValue('--c5').trim();
+    var currentC6 = getComputedStyle(document.documentElement).getPropertyValue('--c6').trim();
+    
+  
+    // Define the new values for '--c5' and '--c6'
+    var newC5 = currentC5 === 'rgba(255, 255, 255, 0.259)' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.259)';
+    var newC6 = currentC6 === 'rgba(255, 255, 255, 0.323)' ? 'rgba(0, 0, 0, 0.19)' : 'rgba(255, 255, 255, 0.323)';
+  
+    // Loop through the NodeList
+    elements.forEach(function(element) {
+      // Swap the values of '--c1' and '--c2'
+      element.style.setProperty('--c1', currentC2);
+      element.style.setProperty('--c2', currentC1);
+      
+      // Swap the values of '--c3' and '--c4'
+      element.style.setProperty('--c3', currentC4);
+      element.style.setProperty('--c4', currentC3);
+      
+      // Toggle the values for '--c5' and '--c6'
+      element.style.setProperty('--c5', newC5);
+      element.style.setProperty('--c6', newC6);
+    });
+  }
+    </script>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="../styleChat.css" type="text/css">
+    
+    <title>The Pixelated World of PixelPaws </title>
+    <link rel="icon" type="image/svg+xml" href="./cat.png" />
+    <meta name="title" content="The Pixelated World of PixelPaws" />
+    <meta name="description" content="Save PixelPaws!!" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Pixelated World of PixelPaws" />
+    <meta property="og:description" content="Save PixelPaws!!" />
+    <meta property="og:image" content="./l3s1.jpg" />
+
+<style>
+        * {
+            box-sizing: border-box;
+            --c1: black;
+            --c2: white;
+            --c3: rgba(255, 255, 255, 0.692);
+            --c4: rgba(0, 0, 0, 0.692);
+            --c5: rgba(0, 0, 0, 0.2);
+            --c6: rgba(0, 0, 0, 0.19);
+            --c7: rgba(255, 255, 255, 0.259);
+            --c8: rgba(255, 255, 255, 0.323);
+            /* Responsive font sizes based on container size */
+            --f3: min(2.5vmin, 1em);
+            --f2: min(3.5vmin, 1.5em);
+            --f1: min(5vmin, 2em);
+            /* Responsive border thickness */
+            --border-thick: min(2vmin, 8px);
+            --border-thin: min(1.5vmin, 6px);
+            margin: 0;
+            padding: 0;
+            background: #ece9d8;
+            font-family: "Rubik", sans-serif;
+            color: var(--c1);
+            overflow: hidden;
+        }
+
+        /* Make body and html full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Main container - responsive square */
+        #main {
+            /* Use the smaller of viewport width or height, minus some padding */
+            width: min(100vw, 100vh);
+            height: min(100vw, 100vh);
+            
+            /* Alternative approach using aspect-ratio (more modern) */
+            /* width: 100%;
+            max-width: 100vh;
+            aspect-ratio: 1;
+            height: auto; */
+            
+            border: var(--border-thick) solid var(--c1);
+            margin: 0;
+            background-color: transparent;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Adjust inner content to fill the container */
+        .st {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+        }
+
+        h1 {
+            font-size: var(--f1);
+            position: absolute;
+            background-color: var(--c2);
+            text-align: center;
+            margin: auto;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        h2 {
+            font-size: var(--f2);
+        }
+
+        @keyframes beg {
+            0% { top: -30px; left: -200px; }
+            25% { top: -50px; left: -150px; }
+            50% { top: 0px; left: -100px; }
+            75% { top: -10px; left: -50px; }
+            100% { top: 0px; left: 0px; }
+        }
+
+        .Menu {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 1vw 5vw;
+            padding: min(2vmin, 10px);
+            border: var(--border-thin) solid var(--c1);
+            border-radius: min(4vmin, 1.7em);
+            justify-content: flex-end;
+            background-color: var(--c2);
+            position: fixed;
+            width: 90vw;
+            animation: beg 1s ease 0s 1 normal forwards;
+            z-index: 100;
+            box-shadow: 0 4px 8px 0 var(--c5), 0 6px 20px 0 var(--c6);
+        }
+
+        .Menu a {
+            font-weight: 700;
+            color: var(--c1);
+            text-decoration: none;
+            background-color: transparent;
+            font-size: var(--f3);
+            min-width: 45px;
+            line-height: 1.5;
+        }
+
+        .Item {
+            padding: 0;
+            margin: 1vw;
+        }
+
+        .Menu a:hover {
+            font-weight: 1000;
+        }
+
+        #LG {
+            position: absolute;
+            width: min(7vmin, 2.8em);
+            height: auto;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            top: .6em;
+            left: 2em;
+        }
+
+        #bw_ {
+            width: min(7vmin, 2.8em);
+            height: auto;
+            margin: 0;
+            padding: 0 !important;
+        }
+
+        .st p {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            right: 5%;
+            background-color: var(--c3);
+            z-index: 11;
+            padding: min(2.5vmin, 10px);
+            font-size: var(--f3);
+            border-radius: min(2vmin, 8px);
+        }
+
+        #b0 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/deadcat.jpg");
+            background-size: cover;
+        }
+
+        #b1 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/principal.jpg");
+            background-size: cover;
+        }
+
+        #b2 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1s1.jpg");
+            background-size: cover;
+        }
+
+        #b3 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1s2.jpg");
+            background-size: cover;
+        }
+
+        #b5 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2s1.jpg");
+            background-size: cover;
+        }
+
+        #b6 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2s2.jpg");
+            background-size: cover;
+        }
+
+        #b8 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%203/l3s1.jpg");
+            background-size: cover;
+        }
+
+        .bp {
+            position: absolute;
+            right: 5%;
+            top: 5%;
+            width: 20%;
+            height: 10%;
+            border: var(--border-thin) solid var(--c1);
+            border-radius: min(5vmin, 20px);
+            background-color: var(--c3);
+            transition: background-color .3s;
+            font-weight: bold;
+            font-size: var(--f3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bp:hover {
+            background-color: var(--c2);
+            cursor: pointer;
+        }
+
+        .bpp {
+            position: absolute;
+            right: 37%;
+            top: 60%;
+            width: 30%;
+            height: 15%;
+            border: var(--border-thin) solid var(--c1);
+            border-radius: min(5vmin, 20px);
+            background-color: var(--c3);
+            transition: background-color .3s;
+            font-size: var(--f2);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bpp:hover {
+            background-color: var(--c2);
+            cursor: pointer;
+        }
+
+        .pb {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #b41 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1b1.png");
+            background-size: cover;
+            z-index: 10;
+        }
+
+        #b42 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1b2.png");
+            background-size: cover;
+            z-index: 8;
+        }
+
+        #b43 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1b3.png");
+            background-size: cover;
+            z-index: 6;
+        }
+
+        #b44 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1b4.png");
+            background-size: cover;
+            z-index: 4;
+        }
+
+        .enemy {
+            position: absolute;
+            width: 12.5%;
+            height: 12.5%;
+            display: none;
+            animation: none;
+            transition: transform 3s ease;
+            transform: translate(0px, 0px);
+        }
+
+        #e41 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e1.png");
+            background-size: cover;
+            top: 90%;
+            left: 12.5%;
+            z-index: 9;
+        }
+
+        @keyframes m41 {
+            100% { top: 80%; }
+        }
+
+        #e42 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e2.png");
+            background-size: cover;
+            top: 63.75%;
+            left: 12.5%;
+            z-index: 7;
+        }
+
+        @keyframes m42 {
+            100% { top: 52.5%; }
+        }
+
+        #e43 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e1.png");
+            background-size: cover;
+            top: 67.5%;
+            left: 57.5%;
+            z-index: 5;
+        }
+
+        @keyframes m43 {
+            100% { top: 55%; }
+        }
+
+        #e44 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e2.png");
+            background-size: cover;
+            top: 87.5%;
+            left: 50%;
+            z-index: 9;
+        }
+
+        @keyframes m44 {
+            100% { top: 75%; }
+        }
+
+        #e45 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e1.png");
+            background-size: cover;
+            top: 75%;
+            left: 50%;
+            z-index: 7;
+        }
+
+        @keyframes m45 {
+            100% { top: 65%; }
+        }
+
+        #e46 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e2.png");
+            background-size: cover;
+            top: 47.5%;
+            left: 23%;
+            z-index: 5;
+        }
+
+        @keyframes m46 {
+            100% { left: 35.5%; }
+        }
+
+        #e47 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e1.png");
+            background-size: cover;
+            top: 91.25%;
+            right: -1.25%;
+            z-index: 9;
+        }
+
+        @keyframes m47 {
+            100% { top: 77.5%; }
+        }
+
+        #e48 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e2.png");
+            background-size: cover;
+            top: 65%;
+            left: 87.5%;
+            z-index: 7;
+        }
+
+        @keyframes m48 {
+            100% { top: 55%; }
+        }
+
+        #e49 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%201/l1e1.png");
+            background-size: cover;
+            top: 0%;
+            left: 75%;
+            z-index: 5;
+        }
+
+        @keyframes m49 {
+            100% { left: 65%; }
+        }
+
+        /* Level 2 backgrounds */
+        #b71 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2b1.png");
+            background-size: cover;
+            z-index: 10;
+        }
+
+        #b72 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2b2.png");
+            background-size: cover;
+            z-index: 8;
+        }
+
+        #b73 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2b3.png");
+            background-size: cover;
+            z-index: 6;
+        }
+
+        #b74 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2b4.png");
+            background-size: cover;
+            z-index: 4;
+        }
+
+        /* Level 2 enemies with percentage-based positioning */
+        #e71 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2e1.png");
+            background-size: cover;
+            top: 75%;
+            left: 2.5%;
+            z-index: 9;
+        }
+
+        @keyframes m71 {
+            100% { top: 62.5%; }
+        }
+
+        #e72 {
+            background: url("https://jeiberth.github.io/my-old-website/Game/Level%202/l2e2.png");
+            background-size: cover;
+            top: 80%;
+            left: 62.5%;
+            z-index: 7;
+        }
+
+        @keyframes m72 {
+            100% { top: 70%; }
+        }
+
+        #timer4, #timer7 {
+            position: absolute;
+            display: inline;
+            bottom: 5%;
+            left: 5%;
+            font-size: var(--f1);
+            font-weight: bold;
+            color: var(--c1);
+            background-color: var(--c3);
+            padding: 5px;
+            width: calc(var(--f1)*2.5);
+            /* padding: min(1.25vmin, 5px) min(2.5vmin, 10px);
+            border-radius: min(2.5vmin, 10px); */
+            z-index: 15;
+        }
+
+        /* Hide initially displayed screens except the first */
+        .st {
+            display: none;
+        }
+
+        #b1 {
+            display: block;
+        }
+
+        /* Media queries for very small screens */
+        @media screen and (max-width: 480px) {
+            #main {
+                border-width: var(--border-thin);
+            }
+            
+            /* Ensure minimum readable font sizes on mobile */
+            :root {
+                --f3: max(min(2.5vmin, 1em), 12px);
+                --f2: max(min(3.5vmin, 1.5em), 14px);
+                --f1: max(min(5vmin, 2em), 16px);
+            }
+        }
+
+        /* Media queries for very large screens */
+        @media screen and (min-width: 1200px) {
+            :root {
+                --f3: min(1.2em, 2.5vmin);
+                --f2: min(1.8em, 3.5vmin);
+                --f1: min(2.4em, 5vmin);
+                --border-thick: min(12px, 2vmin);
+                --border-thin: min(8px, 1.5vmin);
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <div id="main">
+
+        <div class="st" id="b1"><h1>The Pixelated World of PixelPaws</h1><input type="button" onclick="next(2)" class="bpp" value="Play" id="prin"></div>
+        <div class="st" id="b2"><p>In the pixelated world of PixelPaws, a brave feline named PixelWhisker stood as the last line of defense against the digital corruption spreading across the land.</p><input type="button" onclick="next(3)" class="bp" value="Next" id="l1s1b"></div>
+        <div class="st" id="b3"><p>With his trusty blaster and sharp reflexes, he embarked on a quest to purify the corrupted code and defeat the virus, where life starts, in the nature...</p><input type="button" onclick="next(4)" class="bp" value="Next" id="l1s2b"></div>
+        <div class="st" id="b4">
+            <p id="timer4">-60s</p>
+            <div class="pb" id="b41"></div>
+            <div class="pb" id="b42"></div>
+            <div class="pb" id="b43"></div>
+            <div class="pb" id="b44"></div>
+            <a id="e41" onclick="shoot('e41')" class="enemy"></a>
+            <a id="e42" onclick="shoot('e42')" class="enemy"></a>
+            <a id="e43" onclick="shoot('e43')" class="enemy"></a>
+            <a id="e44" onclick="shoot('e44')" class="enemy"></a>
+            <a id="e45" onclick="shoot('e45')" class="enemy"></a>
+            <a id="e46" onclick="shoot('e46')" class="enemy"></a>
+            <a id="e47" onclick="shoot('e47')" class="enemy"></a>
+            <a id="e48" onclick="shoot('e48')" class="enemy"></a>
+            <a id="e49" onclick="shoot('e49')" class="enemy"></a>
+        </div>
+        <div class="st" id="b5"><p>With the Corruptor Bacterias defeated, PixelWhisker discovered a portal leading to the next corrupted zone. The portal's edges crackled with static, but PixelWhisker's determination was unwavering.</p><input type="button" onclick="next(6)" class="bp" value="Next" id="l2s1b"></div>
+        <div class="st" id="b6"><p>He leaped through, finding himself in the midst of a once-celebrated carnival now turned into a chaotic circus of pixels.</p><input type="button" onclick="next(7)" class="bp" value="Next" id="l2s2b"></div>
+        <div class="st" id="b7">
+            <p id="timer7">-100s</p>
+            <div class="pb" id="b71"></div>
+            <div class="pb" id="b72"></div>
+            <div class="pb" id="b73"></div>
+            <div class="pb" id="b74"></div>
+            <a id="e71" onclick="shoot('e71')" class="enemy"></a>
+            <a id="e72" onclick="shoot('e72')" class="enemy"></a>
+            <a id="e73" onclick="shoot('e73')" class="enemy"></a>
+            <a id="e74" onclick="shoot('e74')" class="enemy"></a>
+            <a id="e75" onclick="shoot('e75')" class="enemy"></a>
+            <a id="e76" onclick="shoot('e76')" class="enemy"></a>
+            <a id="e77" onclick="shoot('e77')" class="enemy"></a>
+            <a id="e78" onclick="shoot('e78')" class="enemy"></a>
+            <a id="e79" onclick="shoot('e79')" class="enemy"></a>
+        </div>
+        <div class="st" id="b8"><p>This journey will continue...</p></div>
+
+        
+        <div class="st" id="b0"><h1>You were killed...</h1><input type="button" onclick="next(1)" class="bpp" value="Try again" id="lost"></div>      
+    </div>
+
+</body>
+</html>
