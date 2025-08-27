@@ -62,7 +62,7 @@
     <div class="xp-content">
          <div style="display: flex; flex-direction: row; margin-top: 5px; margin-left: 5px;">
             <img src="@/assets/error.png" alt="Error" style="width: 20px; height: 20px; margin-right: 10px; margin-top: 3px;"/>
-            <p style="margin-bottom: 0px;">Something's wrong!</p>
+            <p style="margin-bottom: 0px;">{{ element.data.text }}</p>
          </div>
          <div class="row" style="display: flex; flex-direction: column; justify-content: center; align-content: center; margin-top: 10px;">
             <button @click="close" class="okButton" style="text-align: center; text-justify: center;"><p style="    transform: translateY(-5px);">ok</p></button>
@@ -206,6 +206,10 @@ onMounted(() => {
     // Save original position for restore
     originalPosition.x = position.x
     originalPosition.y = position.y
+  }
+
+  if(size.width > window.innerWidth){
+    size.width = window.innerWidth - 20
   }
 
 })

@@ -9,7 +9,9 @@
       left: position.x + 'px',
       top: position.y + 'px',
       width: size.width + 'px',
-      height: size.height + 'px'
+      height: size.height + 'px',
+      maxWidth: maxWidth + 'px',
+      maxHeight: maxHeight + 'px'
     }"
   >
     <!-- Header Bar -->
@@ -74,8 +76,14 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted, computed } from 'vue'
+// Device dimensions - ADD THESE TWO LINES
+const deviceWidth = ref(window.innerWidth)
+const deviceHeight = ref(window.innerHeight)
 
+// Computed properties for maximum dimensions - ADD THESE TWO LINES
+const maxWidth = computed(() => deviceWidth.value)
+const maxHeight = computed(() => deviceHeight.value)
 
 const htmlFileUrl = ref(new URL('@/assets/Game/index.html', import.meta.url).href)
 
@@ -183,16 +191,44 @@ const stopDrag = () => {
 }
 
 // Handle window resize
+// const handleResize = () => {
+//   if (isMaximized.value) {
+//     size.width = window.innerWidth
+//     size.height = window.innerHeight - 40
+//   }
+// }
+
+// Handle window resize - REPLACE this function
 const handleResize = () => {
+  // Update device dimensions
+  deviceWidth.value = window.innerWidth
+  deviceHeight.value = window.innerHeight
+  
   if (isMaximized.value) {
-    size.width = window.innerWidth
-    size.height = window.innerHeight - 40
+    size.width = deviceWidth.value
+    size.height = deviceHeight.value - 40
+  } else {
+    // Ensure window doesn't exceed new device dimensions
+    size.width = Math.min(size.width, deviceWidth.value)
+    size.height = Math.min(size.height, deviceHeight.value - 25)
+    
+    // Adjust position if window is now outside viewport
+    position.x = Math.max(0, Math.min(position.x, deviceWidth.value - size.width))
+    position.y = Math.max(0, Math.min(position.y, deviceHeight.value - 25))
   }
 }
 
 onMounted(() => {
   window.addEventListener('resize', handleResize)
-
+  
+  // Update device dimensions - ADD THESE TWO LINES
+  deviceWidth.value = window.innerWidth
+  deviceHeight.value = window.innerHeight
+  
+  // Ensure initial size is within bounds - ADD THIS LINE
+  size.width = Math.min(size.width, deviceWidth.value)
+  size.height = Math.min(size.height, deviceHeight.value - 25)
+  
   // Only set random position when not maximized
   if (!isMaximized.value) {
     const maxX = window.innerWidth - size.width
@@ -226,6 +262,11 @@ onUnmounted(() => {
   border-bottom: 3px solid rgb(8, 49, 217);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   user-select: none;
+
+    max-width: 100vw;
+  max-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .xp-header {

@@ -121,11 +121,11 @@
           v-for="(app, index) in applicationsWithoutErrors " 
           :key="index"
           class="taskbar-button"
-          :class="{ 'active': app.id === activeAppId, 'inactive': app.id !== activeAppId }"
+          :class="{ 'active': app.id === activeAppId, 'inactive': app.id !== activeAppId, 'buttonMobile': isMobile }"
           @click="selectApp(app.id)"
         >
           <img :src="app.icon" :alt="app.name" class="app-icon" />
-          <span class="app-name">{{ app.name }}</span>
+          <span v-if="!isMobile" class="app-name">{{ app.name }}</span>
         </div>
       </div>
 
@@ -161,6 +161,7 @@ import windowPP from "@/components/windowPP.vue"
 import windowJAI from "@/components/windowJAI.vue"
 import errorxp from "@/components/errorxp.vue"
 
+const isMobile = ref(window.innerWidth <= 768)
 
 // Reactive data
 const selectedAppId = ref(null) // For desktop app selection
@@ -244,7 +245,7 @@ const err = reactive([
     id: 'error',
     name: 'C:/',
     icon: new URL('@/assets/error.png', import.meta.url).href,
-    data: {},
+    data: { text: "Something's wrong!" },
   },
 ]);
 
@@ -628,7 +629,14 @@ const updateTime = () => {
 onMounted(() => {
   updateTime()
   timeInterval = setInterval(updateTime, 1000)
+  
+  const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
 
+  window.addEventListener('resize', setViewportHeight);
+  setViewportHeight();
   // const audio = new Audio(new URL('@/assets/start_sound.mp3', import.meta.url).href)
   // audio.play().catch((err) => {
   //   console.warn('Audio failed to play automatically:', err)
@@ -1006,7 +1014,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: flex-start;
   width: 120px;
-  height: 135px;
+  height: 108px;
   cursor: pointer;
   border-radius: 3px;
   padding: 12px 6px 6px 6px;
@@ -1219,7 +1227,7 @@ onUnmounted(() => {
   align-items: center;
   padding: 0;
   position: relative;
-  z-index: 2001;
+  z-index: 10000000000;
 }
 
 /* Start Button */
@@ -1259,8 +1267,9 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   height: 32px;
-  min-width: 120px;
-  max-width: 180px;
+  /* min-width: 120px;
+  max-width: 180px; */
+  width: 160px;
   padding: 2px 6px;
   margin: 0 1px;
   font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -1270,6 +1279,10 @@ onUnmounted(() => {
   overflow: hidden;
   box-sizing: border-box;
   transition: all 0.1s ease;
+}
+
+.buttonMobile{
+  width: 30px;
 }
 
 /* Active (pressed) button styling */
