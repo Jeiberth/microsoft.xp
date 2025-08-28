@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkwxpjm"]=self["webpackChunkwxpjm"]||[]).push([[159],{1159:function(e,n,t){t.r(n),t.d(n,{default:function(){return o}});var l=t(641),u={__name:"Resume",setup(e){return(0,l.sV)(()=>{const e=document.createElement("a");e.href="./JeiberthMalagon_FullStackDeveloper.pdf",e.download="JeiberthMalagon_FullStackDeveloper.pdf",e.click(),setTimeout(()=>{window.location.href="#/"},1e3)}),(e,n)=>((0,l.uX)(),(0,l.CE)("p",null,"Downloading resume..."))}};const a=u;var o=a}}]);
+//# sourceMappingURL=159.965cba40.js.map
