@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkwxpjm"]=self["webpackChunkwxpjm"]||[]).push([[159],{1159:function(e,n,t){t.r(n),t.d(n,{default:function(){return o}});var u=t(641),l={__name:"Resume",setup(e){return(0,u.sV)(()=>{const e=document.createElement("a");e.href="./Jeiberth_Malagon_FullStack_AI_Developer_Resume.pdf",e.download="Jeiberth_Malagon_FullStack_AI_Developer_Resume.pdf",e.click(),setTimeout(()=>{window.location.href="#/"},1e3)}),(e,n)=>((0,u.uX)(),(0,u.CE)("p",null,"Downloading resume..."))}};const a=l;var o=a}}]);
+//# sourceMappingURL=159.190dbf32.js.map
