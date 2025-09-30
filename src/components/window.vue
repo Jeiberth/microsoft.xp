@@ -61,13 +61,13 @@
     </div>
 
     <div class="xp-content">
-      <div class="skinny-pane">
+      <div class="skinny-pane" :class="{ 'mobileSkinny': isMobile }">
         <div class="icon-container" @click="takesToNewWebsite">
           <img :src="element.data.icon" :alt="element.data.title" />
         </div>
         <h1 class="content-title">{{ element.data.title }}</h1>
-        <p class="content-text">{{ element.data.text }}</p>
-        <div v-if="element.data.skills && element.data.skills.length" class="skills-container">
+
+        <div v-if="element.data.skills && element.data.skills.length" class="skills-container my-3">
           <img
             v-for="(skill, index) in element.data.skills"
             :key="index"
@@ -77,6 +77,7 @@
             title="Skill"
           />
         </div>
+        <p class="content-text">{{ element.data.text }}</p>
 
       </div>
 
@@ -142,6 +143,9 @@ const modalStart = reactive({ x: 0, y: 0 })
 const minimize = () => {
   emit('hide')
 }
+
+const isMobile = ref(window.innerWidth <= 768)
+
 
 const close = () => {
   emit('kill')
@@ -389,6 +393,10 @@ onUnmounted(() => {
   flex: 0 0 auto;
   min-height: 220px; /* Ensure a minimum height */
   border-bottom: 1px solid #dcdcdc;
+}
+
+.mobileSkinny{
+  height: 30vh;;
 }
 
 .main-pane {
