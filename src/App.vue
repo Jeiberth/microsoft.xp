@@ -607,7 +607,7 @@ const appDesktop = reactive([
 ]);
 
 // Taskbar applications data
-const applications = reactive([]);
+const  applications = reactive([]);
 const nextZ = ref(1);
 
 // Timer reference for cleanup
