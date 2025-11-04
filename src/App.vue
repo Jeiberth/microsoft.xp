@@ -587,6 +587,23 @@ const appDesktop = reactive([
       ]
     }
   },
+  {
+    "id": 10,
+    "name": "Dataroma Insider Analyzer Scraper",
+    "icon": new URL('@/assets/dataroma.png', import.meta.url).href,
+    "data": {
+      "icon": new URL('@/assets/dataroma.png', import.meta.url).href,
+      "title": "Dataroma Insider Trading Web Scraper with Price Analysis",
+      "url": "https://jeiberth.com/code.txt",
+      "text": "This project focuses on building a robust, asynchronous data scraping and analysis pipeline. It uses Playwright with asyncio to efficiently crawl multiple pages from Dataroma in parallel, ensuring non-blocking network operations while maintaining reliability through retry logic and graceful error handling. Extracted insider trading data is structured into dictionaries, filtered to detect symbols with multiple distinct reporters, and then enriched with historical price data via Polygon.io’s API. The scraper applies clustering logic to group purchases by both reporter and time proximity, allowing for deeper insight into coordinated insider activity. The final dataset is processed and summarized using Pandas, generating detailed performance metrics and exporting consolidated JSON reports for further visualization or research.",
+      "skills": [
+        new URL('@/assets/python.png', import.meta.url).href,
+        new URL('@/assets/playwright.png', import.meta.url).href,
+        new URL('@/assets/aiohttp.png', import.meta.url).href,
+        new URL('@/assets/pandas.png', import.meta.url).href,
+      ]
+    }
+  }
 ]);
 
 // Taskbar applications data
